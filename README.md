@@ -5,7 +5,8 @@ FullCalendar 3 integration with boostrap4, php, mysql / bootstrap4, php, json
 
 Updates and expands on jamelbaz's FullCalendar-BS3-PHP-MySQL repository.
 
-* Supports event scheduling using JSON / MySQL event scheduling updated
+* Supports event scheduling using JSON
+* MySQL event scheduling updated
 * FullCalendar updated from 2.6.1 to 3.9.0
 	* Clickable calendar date numbers
 	* Added the calendar list view
