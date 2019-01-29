@@ -45,11 +45,14 @@ Updates and expands on jamelbaz's FullCalendar-BS3-PHP-MySQL repository.
 
 ## Built With
 
-* Bootstrap
+* Bootstrap4
 * PHP5
-* MySQL
-* JSON / jQuery / JavaScript
-* HTML / CSS
+* SQL/MySQL
+* JSON/jQuery/JavaScript
+* HTML5
+* CSS3
+* FullCalendar v3.9
+* FullCalendar-BS3-PHP-MySQL Framework
 
 ## Contributing
 
