@@ -16,14 +16,38 @@
     <!-- Bootstrap Core CSS -->
 	
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+    
+ <!-- /.container -->
 
+    <!-- jQuery Version 1.11.1 -->
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
+	<script src='js/moment.min.js'></script>
+    <script
+  src="https://code.jquery.com/jquery-1.9.1.min.js"
+  integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
+  crossorigin="anonymous"></script>
+	
+	<!-- FullCalendar -->
+	<script src='js/fullcalendar.min.js'></script>
+	
+	 <!-- Bootstrap Core JavaScript -->
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
 
     <!-- Custom CSS -->
+    <script>
+    $(document).on('shown.bs.modal','#ModalEdit', function () {
+                        if ($('#repeat1').attr('placeholder') == 'no') {
+                        $('#chk').hide();
+                        }
+                    })
+    </script>
+    
     
 	 <style>
     
 	#calendar {
 		max-width: 1200px;
+		margin-bottom: 30px;
 	}
 	.nocheckbox {
     display: none;
@@ -44,6 +68,10 @@
     border: 1px solid red;
     padding: 10px;
     display: table-cell;
+}
+
+#repeat-form {
+    display: none;
 }
 	
 	  #calendar a.fc-event {
@@ -102,7 +130,7 @@
 				  </div>
 				  <div class="form-group">
 					<label for="color" class="col-sm-2 control-label">Color</label>
-					<div class="col-sm-10">
+					<div class="col-sm-6">
 					  <select name="color" class="form-control" id="color">
 						  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
 						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
@@ -115,6 +143,40 @@
 						</select>
 					</div>
 				  </div>
+                  <div class="form-group">
+					<label for="repeat" class="col-sm-4 control-label">Recurrence</label>
+					<div class="col-sm-4">
+					  <select name="repeat" class="form-control" id="repeat">
+						  <option id="no" value="no">no</option>
+						  <option id="yes" value="yes">yes</option>
+                      </select>
+					</div>
+				  </div>
+                  <div class="form-group" id="repeat-form">
+					<label for="count" class="col-sm-4 control-label"># of Repeats</label>
+					<div class="col-sm-10">
+					  <select name="count" class="form-control" id="count">
+                          <option value="1">1</option>
+						  <option value="2">2</option>
+						  <option value="3">3</option>
+						  <option value="4">4</option>						  
+						</select>
+					</div>
+				  </div>
+                  <script>
+var Privileges = $('#repeat');
+var select = this.value;
+Privileges.change(function () {
+    if ($(this).val() == 'yes') {
+        $('#repeat-form').show();
+        $("#count").val(2);
+    }
+    else {
+    $('#repeat-form').hide(); // hide div if value is not "custom"
+     $("#count").val(1);
+    }
+});
+                  </script>
 				  <div class="container">
 				  <div class="row">
 				  <div class="form-group">
@@ -175,7 +237,6 @@
 						  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
 						  <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
 						  <option style="color:#000;" value="#000">&#9724; Black</option>
-						  
 						</select>
 					</div>
 				  </div>
@@ -198,7 +259,33 @@
 						}
 					}		  
 					</script>
+					<div class="form-group">
+					<label for="repeat1" class="col-sm-4 control-label">Recurrence Status</label>
+					<div class="col-sm-10">
+					  <input type="text" name="repeat1" class="form-control" id="repeat1" placeholder="repeat1" readonly>
+					</div>
+				  </div>
+            				    <div class="form-group" id="chk"> 
+						<div class="col-sm-6">
+						  <label onclick="toggleCheck1('check2');" class="label-off" for="check2" id="check2_label">
+						  Delete Recurrence
+						</label>
+						<input class="nocheckbox" type="checkbox" id="check2" name="delete-repeat">
+						</div>
+					</div>
+					<script>
+					function toggleCheck1(check) {
+						if ($('#'+check).is(':checked')) {
+							$('#'+check+'_label').removeClass('label-on');
+							$('#'+check+'_label').addClass('label-off');
+						} else {
+							$('#'+check+'_label').addClass('label-on');
+							$('#'+check+'_label').removeClass('label-off');
+						}
+					}
+					</script>
 				  <input type="hidden" name="id" class="form-control" id="id">
+				  <input type="hidden" name="rid" class="form-control" id="rid">
 				
 				
 			  </div>
@@ -212,21 +299,7 @@
 		</div>
 
     </div>
-    <!-- /.container -->
-
-    <!-- jQuery Version 1.11.1 -->
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
-	<script src='js/moment.min.js'></script>
-    <script
-  src="https://code.jquery.com/jquery-1.9.1.min.js"
-  integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
-  crossorigin="anonymous"></script>
-	
-	<!-- FullCalendar -->
-	<script src='js/fullcalendar.min.js'></script>
-	
-	 <!-- Bootstrap Core JavaScript -->
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
+   
 	
 	
 	<script>
@@ -238,7 +311,7 @@
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay, listWeek'
 			},
-			height: 590,
+			height: 540,
 			businessHours: {
 			  dow: [ 1, 2, 3, 4, 5 ],
 
@@ -278,9 +351,12 @@
 			eventRender: function(event, element) {
 				element.bind('dblclick', function() {
 					$('#ModalEdit #id').val(event.id);
+					$('#ModalEdit #rid').val(event.rid);
 					$('#ModalEdit #title').val(event.title);
 					$('#ModalEdit #description').val(event.description);
 					$('#ModalEdit #color').val(event.color);
+					$('#ModalEdit #repeat1').val(event.repeat);
+					$('#ModalEdit #count').val(event.count);
 					$('#ModalEdit').modal('show');
 				});
 			},
