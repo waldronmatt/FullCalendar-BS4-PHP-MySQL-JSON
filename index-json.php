@@ -57,7 +57,7 @@
     border-radius: 3px;
     background: red;
     color: #ffffff;
-    padding: 10px;
+    padding: 6px 10px;
     border: 1px solid red;
     display: table-cell;
 }
@@ -66,7 +66,7 @@
     border-radius: 3px;
     background: white;
     border: 1px solid red;
-    padding: 10px;
+    padding: 6px 10px;
     display: table-cell;
 }
 
@@ -213,22 +213,16 @@ Privileges.change(function () {
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  </div>
 			  <div class="modal-body">
-				
+				<div class="row">
 				  <div class="form-group">
-					<label for="title" class="col-sm-2 control-label">Title</label>
-					<div class="col-sm-10">
+					<label for="title" class="col-sm-12 control-label">Title</label>
+					<div class="col-sm-12">
 					  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
 					</div>
 				  </div>
 				  <div class="form-group">
-					<label for="description" class="col-sm-2 control-label">Description</label>
-					<div class="col-sm-10">
-					  <input type="text" name="description" class="form-control" id="description" placeholder="Description">
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="color" class="col-sm-2 control-label">Color</label>
-					<div class="col-sm-10">
+					<label for="color" class="col-sm-12 control-label">Color</label>
+					<div class="col-sm-12">
 					  <select name="color" class="form-control" id="color">
 						  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
 						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
@@ -240,14 +234,24 @@ Privileges.change(function () {
 						</select>
 					</div>
 				  </div>
-				    <div class="form-group"> 
-						<div class="col-sm-2">
-						  <label onclick="toggleCheck('check1');" class="label-off" for="check1" id="check1_label">
-						  Delete
-						</label>
-						<input class="nocheckbox" type="checkbox" id="check1" name="delete">
+				  </div>
+				  <div class="row">
+                    				  <div class="form-group">
+
+                        <label for="description" class="col-12 control-label">Description</label>
+                        <div class="col-12">
+                        <input type="text" name="description" class="form-control" id="description" placeholder="Description">
+                        </div>
+                        </div>
+				    <div class="form-group" id="del"> 
+																	<label class="col-sm-12 control-label">Delete Event</label>
+                            <div class="col-sm-12">
+
+						  <label onclick="toggleCheck('check1');" class="label-off" for="check1" id="check1_label">Delete</label>
+						  </div>
+						  <input class="nocheckbox" type="checkbox" id="check1" name="delete">
 						</div>
-					</div>
+                  </div>
 					<script>
 					function toggleCheck(check) {
 						if ($('#'+check).is(':checked')) {
@@ -259,20 +263,24 @@ Privileges.change(function () {
 						}
 					}		  
 					</script>
+					<div class="row">
 					<div class="form-group">
-					<label for="repeat1" class="col-sm-4 control-label">Recurrence Status</label>
-					<div class="col-sm-10">
-					  <input type="text" name="repeat1" class="form-control" id="repeat1" placeholder="repeat1" readonly>
-					</div>
-				  </div>
+                        <label for="repeat1" class="col-sm-12 control-label">Recurrence</label>
+                            <div class="col-sm-12">
+                            <input type="text" name="repeat1" class="form-control" id="repeat1" placeholder="repeat1" readonly>
+                            </div>
+                            </div>
             				    <div class="form-group" id="chk"> 
-						<div class="col-sm-6">
+											<label class="col-sm-12 control-label">Delete Recurrence</label>
+                            <div class="col-sm-12">
+
 						  <label onclick="toggleCheck1('check2');" class="label-off" for="check2" id="check2_label">
-						  Delete Recurrence
+						  Delete
 						</label>
+						</div>
 						<input class="nocheckbox" type="checkbox" id="check2" name="delete-repeat">
 						</div>
-					</div>
+						</div>
 					<script>
 					function toggleCheck1(check) {
 						if ($('#'+check).is(':checked')) {
@@ -356,6 +364,11 @@ Privileges.change(function () {
 					$('#ModalEdit #description').val(event.description);
 					$('#ModalEdit #color').val(event.color);
 					$('#ModalEdit #repeat1').val(event.repeat);
+					if (event.repeat == 'yes') {
+					$('#chk').show();
+					} else {
+					$('#chk').hide();
+					}
 					$('#ModalEdit #count').val(event.count);
 					$('#ModalEdit').modal('show');
 				});
