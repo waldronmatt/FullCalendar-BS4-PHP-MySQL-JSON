@@ -16,14 +16,38 @@
     <!-- Bootstrap Core CSS -->
 	
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+    
+ <!-- /.container -->
 
+    <!-- jQuery Version 1.11.1 -->
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
+	<script src='js/moment.min.js'></script>
+    <script
+  src="https://code.jquery.com/jquery-1.9.1.min.js"
+  integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
+  crossorigin="anonymous"></script>
+	
+	<!-- FullCalendar -->
+	<script src='js/fullcalendar.min.js'></script>
+	
+	 <!-- Bootstrap Core JavaScript -->
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
 
     <!-- Custom CSS -->
+    <script>
+    $(document).on('shown.bs.modal','#ModalEdit', function () {
+                        if ($('#repeat1').attr('placeholder') == 'no') {
+                        $('#chk').hide();
+                        }
+                    })
+    </script>
+    
     
 	 <style>
     
 	#calendar {
 		max-width: 1200px;
+		margin-bottom: 30px;
 	}
 	.nocheckbox {
     display: none;
@@ -33,7 +57,7 @@
     border-radius: 3px;
     background: red;
     color: #ffffff;
-    padding: 10px;
+    padding: 6px 10px;
     border: 1px solid red;
     display: table-cell;
 }
@@ -42,8 +66,12 @@
     border-radius: 3px;
     background: white;
     border: 1px solid red;
-    padding: 10px;
+    padding: 6px 10px;
     display: table-cell;
+}
+
+#repeat-form {
+    display: none;
 }
 	
 	  #calendar a.fc-event {
@@ -77,7 +105,7 @@
         </div>
         <!-- /.row -->
 		<!-- Modal -->
-<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
      <form class="form-horizontal" method="POST" action="addEvent-json.php">
@@ -102,7 +130,7 @@
 				  </div>
 				  <div class="form-group">
 					<label for="color" class="col-sm-2 control-label">Color</label>
-					<div class="col-sm-10">
+					<div class="col-sm-6">
 					  <select name="color" class="form-control" id="color">
 						  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
 						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
@@ -115,6 +143,63 @@
 						</select>
 					</div>
 				  </div>
+                  <div class="form-group">
+					<label for="repeat" class="col-sm-4 control-label">Recurrence</label>
+					<div class="col-sm-4">
+					  <select name="repeat" class="form-control" id="repeat">
+						  <option id="no" value="no">no</option>
+						  <option id="yes" value="yes">yes</option>
+                      </select>
+					</div>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="0" id="monday">
+					<label class="form-check-label" for="defaultCheck1">Monday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="1" id="tuesday">
+					<label class="form-check-label" for="defaultCheck1">Tuesday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="2" id="wednesday">
+					<label class="form-check-label" for="defaultCheck1">Wednesday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="3" id="thursday">
+					<label class="form-check-label" for="defaultCheck1">Thursday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="4" id="friday">
+					<label class="form-check-label" for="defaultCheck1">Friday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="5" id="saturday">
+					<label class="form-check-label" for="defaultCheck1">Saturday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="6" id="sunday">
+					<label class="form-check-label" for="defaultCheck1">Sunday</label>
+				  </div>
+				  <div class="form-group">
+					<label for="endDate" class="col-sm-6 control-label">End Date</label>
+					<div class="col-sm-10">
+					  <input type="text" name="endDate" class="form-control" id="endDate" value="2019-01-31" placeholder="2019-01-31">
+					</div>
+				  </div>
+                  <script>
+var Privileges = $('#repeat');
+var select = this.value;
+Privileges.change(function () {
+    if ($(this).val() == 'yes') {
+        $('#repeat-form').show();
+        $("#count").val(2);
+    }
+    else {
+    $('#repeat-form').hide(); // hide div if value is not "custom"
+     $("#count").val(1);
+    }
+});
+                  </script>
 				  <div class="container">
 				  <div class="row">
 				  <div class="form-group">
@@ -151,22 +236,16 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  </div>
 			  <div class="modal-body">
-				
+				<div class="row">
 				  <div class="form-group">
-					<label for="title" class="col-sm-2 control-label">Title</label>
-					<div class="col-sm-10">
+					<label for="title" class="col-sm-12 control-label">Title</label>
+					<div class="col-sm-12">
 					  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
 					</div>
 				  </div>
 				  <div class="form-group">
-					<label for="description" class="col-sm-2 control-label">Description</label>
-					<div class="col-sm-10">
-					  <input type="text" name="description" class="form-control" id="description" placeholder="Description">
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="color" class="col-sm-2 control-label">Color</label>
-					<div class="col-sm-10">
+					<label for="color" class="col-sm-12 control-label">Color</label>
+					<div class="col-sm-12">
 					  <select name="color" class="form-control" id="color">
 						  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
 						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
@@ -175,18 +254,27 @@
 						  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
 						  <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
 						  <option style="color:#000;" value="#000">&#9724; Black</option>
-						  
 						</select>
 					</div>
 				  </div>
-				    <div class="form-group"> 
-						<div class="col-sm-2">
-						  <label onclick="toggleCheck('check1');" class="label-off" for="check1" id="check1_label">
-						  Delete
-						</label>
-						<input class="nocheckbox" type="checkbox" id="check1" name="delete">
+				  </div>
+				  <div class="row">
+                    				  <div class="form-group">
+
+                        <label for="description" class="col-12 control-label">Description</label>
+                        <div class="col-12">
+                        <input type="text" name="description" class="form-control" id="description" placeholder="Description">
+                        </div>
+                        </div>
+				    <div class="form-group" id="del"> 
+																	<label class="col-sm-12 control-label">Delete Event</label>
+                            <div class="col-sm-12">
+
+						  <label onclick="toggleCheck('check1');" class="label-off" for="check1" id="check1_label">Delete</label>
+						  </div>
+						  <input class="nocheckbox" type="checkbox" id="check1" name="delete">
 						</div>
-					</div>
+                  </div>
 					<script>
 					function toggleCheck(check) {
 						if ($('#'+check).is(':checked')) {
@@ -198,7 +286,37 @@
 						}
 					}		  
 					</script>
+					<div class="row">
+					<div class="form-group">
+                        <label for="repeat1" class="col-sm-12 control-label">Recurrence</label>
+                            <div class="col-sm-12">
+                            <input type="text" name="repeat1" class="form-control" id="repeat1" placeholder="repeat1" readonly>
+                            </div>
+                            </div>
+            				    <div class="form-group" id="chk"> 
+											<label class="col-sm-12 control-label">Delete Recurrence</label>
+                            <div class="col-sm-12">
+
+						  <label onclick="toggleCheck1('check2');" class="label-off" for="check2" id="check2_label">
+						  Delete
+						</label>
+						</div>
+						<input class="nocheckbox" type="checkbox" id="check2" name="delete-repeat">
+						</div>
+						</div>
+					<script>
+					function toggleCheck1(check) {
+						if ($('#'+check).is(':checked')) {
+							$('#'+check+'_label').removeClass('label-on');
+							$('#'+check+'_label').addClass('label-off');
+						} else {
+							$('#'+check+'_label').addClass('label-on');
+							$('#'+check+'_label').removeClass('label-off');
+						}
+					}
+					</script>
 				  <input type="hidden" name="id" class="form-control" id="id">
+				  <input type="hidden" name="rid" class="form-control" id="rid">
 				
 				
 			  </div>
@@ -212,21 +330,7 @@
 		</div>
 
     </div>
-    <!-- /.container -->
-
-    <!-- jQuery Version 1.11.1 -->
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
-	<script src='js/moment.min.js'></script>
-    <script
-  src="https://code.jquery.com/jquery-1.9.1.min.js"
-  integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
-  crossorigin="anonymous"></script>
-	
-	<!-- FullCalendar -->
-	<script src='js/fullcalendar.min.js'></script>
-	
-	 <!-- Bootstrap Core JavaScript -->
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
+   
 	
 	
 	<script>
@@ -238,7 +342,7 @@
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay, listWeek'
 			},
-			height: 590,
+			height: 540,
 			businessHours: {
 			  dow: [ 1, 2, 3, 4, 5 ],
 
@@ -278,9 +382,17 @@
 			eventRender: function(event, element) {
 				element.bind('dblclick', function() {
 					$('#ModalEdit #id').val(event.id);
+					$('#ModalEdit #rid').val(event.rid);
 					$('#ModalEdit #title').val(event.title);
 					$('#ModalEdit #description').val(event.description);
 					$('#ModalEdit #color').val(event.color);
+					$('#ModalEdit #repeat1').val(event.repeat);
+					if (event.repeat == 'yes') {
+					$('#chk').show();
+					} else {
+					$('#chk').hide();
+					}
+					$('#ModalEdit #count').val(event.count);
 					$('#ModalEdit').modal('show');
 				});
 			},
