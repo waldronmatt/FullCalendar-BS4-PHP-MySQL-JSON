@@ -38,7 +38,7 @@ $postDates = array(
 );
 
 $num = 0;
-$post=array('1'=>'0','2'=>'2','3'=>'4');
+$post=array('1'=>'0','2'=>'2');
 foreach ($post as $p) {
     $dowNum = $postDates[$p][1];
     $dow = $postDates[$p][2];

@@ -105,7 +105,7 @@
         </div>
         <!-- /.row -->
 		<!-- Modal -->
-<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
      <form class="form-horizontal" method="POST" action="addEvent-json.php">
@@ -152,15 +152,38 @@
                       </select>
 					</div>
 				  </div>
-                  <div class="form-group" id="repeat-form">
-					<label for="count" class="col-sm-4 control-label"># of Repeats</label>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="0" id="monday">
+					<label class="form-check-label" for="defaultCheck1">Monday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="1" id="tuesday">
+					<label class="form-check-label" for="defaultCheck1">Tuesday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="2" id="wednesday">
+					<label class="form-check-label" for="defaultCheck1">Wednesday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="3" id="thursday">
+					<label class="form-check-label" for="defaultCheck1">Thursday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="4" id="friday">
+					<label class="form-check-label" for="defaultCheck1">Friday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="5" id="saturday">
+					<label class="form-check-label" for="defaultCheck1">Saturday</label>
+				  </div>
+				  <div class="form-check repeat-form">
+					<input name="dowID[]" class="form-check-input" type="checkbox" value="6" id="sunday">
+					<label class="form-check-label" for="defaultCheck1">Sunday</label>
+				  </div>
+				  <div class="form-group">
+					<label for="endDate" class="col-sm-6 control-label">End Date</label>
 					<div class="col-sm-10">
-					  <select name="count" class="form-control" id="count">
-                          <option value="1">1</option>
-						  <option value="2">2</option>
-						  <option value="3">3</option>
-						  <option value="4">4</option>						  
-						</select>
+					  <input type="text" name="endDate" class="form-control" id="endDate" value="2019-01-31" placeholder="2019-01-31">
 					</div>
 				  </div>
                   <script>
