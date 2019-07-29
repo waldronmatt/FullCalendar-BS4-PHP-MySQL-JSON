@@ -1,8 +1,8 @@
-# fullcalendar-BS4-PHP-MySQL-JSON
+# FullCalendar-BS4-PHP-MySQL-JSON
 
 A drag & drop event calendar with data permanence.
 
-![FullCalendar with data permanence](pic.png)
+![FullCalendar with data permanence](pic.png?raw=true)
 
 ## Purpose
 
