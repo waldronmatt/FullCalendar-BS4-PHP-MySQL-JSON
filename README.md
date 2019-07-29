@@ -1,12 +1,11 @@
 # fullcalendar-BS4-PHP-MySQL-JSON
-FullCalendar 3 integration with boostrap4, php, mysql, json
+FullCalendar 3 integration with boostrap4, php, mysql / bootstrap4, php, json
 
 ## Purpose
 
 Updates and expands on jamelbaz's FullCalendar-BS3-PHP-MySQL repository.
 
-* Supports event scheduling using JSON
-* MySQL event scheduling updated
+* Supports event scheduling using JSON / MySQL event scheduling updated
 * FullCalendar updated from 2.6.1 to 3.9.0
 	* Clickable calendar date numbers
 	* Added the calendar list view
@@ -46,14 +45,11 @@ Updates and expands on jamelbaz's FullCalendar-BS3-PHP-MySQL repository.
 
 ## Built With
 
-* Bootstrap4
+* Bootstrap
 * PHP5
-* SQL/MySQL
-* JSON/jQuery/JavaScript
-* HTML5
-* CSS3
-* FullCalendar v3.9
-* FullCalendar-BS3-PHP-MySQL Framework
+* MySQL
+* JSON / jQuery / JavaScript
+* HTML / CSS
 
 ## Contributing
 
