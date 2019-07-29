@@ -70,8 +70,12 @@ if (isset($_POST['title'])){
                     $_POST['start'] = $date;
                 }
                 if($end[1] == '00:00:00') {
-                    $_POST['end'] = $date;
-                } 
+                //if all day or multi day, calculate day interval
+                    $start_date = strtotime($start[0]); 
+                    $end_date = strtotime($end[0]); 
+                    $diff = ($end_date - $start_date)/60/60/24; 
+                    $_POST['end'] = date('Y-m-d', strtotime($date . " + " . $diff . " day"));
+                }
                 // add date to array
                 $extra = array(
                     'id' => ++$last_item_id,
