@@ -6,7 +6,7 @@ A drag & drop event calendar with data permanence.
 
 ## Purpose
 
-MySQL/JSON integration with FullCalendar with event recurrence capabilities.
+MySQL/JSON integration with FullCalendar and event recurrence capabilities.
 
 # Features
 
@@ -36,7 +36,7 @@ JSON
 1. Copy files to localhost
 2. Open *index-json.php* from browser
 
-Note: If event editing not "sticking" on refresh, verify file permissions are sufficient. ``` ls -l ```
+**Note:** If event editing not "sticking" on refresh, verify file permissions are sufficient. ``` ls -l ```
 
 # Event Structure
 
@@ -61,6 +61,8 @@ MySQL Event Schema
 (5, 'Meeting', 'some text for meeting', '#000', '2019-01-11 10:30:00', '2019-01-11 12:30:00')
 ```
 
+New Properties
+
 * rid = recurrence id
 * repeat = repeat status
 
@@ -74,14 +76,14 @@ MySQL Event Schema
 
 * FC v3.9.0
 * BS4
-* PHP5/7
-* JSON/MySQL
+* PHP 5/7
+* MySQL/JSON
 * JavaScript/jQuery
 * HTML/CSS
 
 ## Contributing
 
-Submit a PR and I'll review. Look for untagged issues to help with.
+Submit a PR and I'll review. Look for untagged/unassigned issues to help with.
 
 ## Versioning
 
