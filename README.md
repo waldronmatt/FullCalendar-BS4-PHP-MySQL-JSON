@@ -1,63 +1,101 @@
-# fullcalendar-BS4-PHP-MySQL-JSON
-FullCalendar 3 integration with boostrap4, php, mysql / bootstrap4, php, json
+# FullCalendar-BS4-PHP-MySQL-JSON
+
+A drag & drop event calendar with data permanence.
+
+![FullCalendar with data permanence](img/main.png)
 
 ## Purpose
 
-Updates and expands on jamelbaz's FullCalendar-BS3-PHP-MySQL repository.
+MySQL/JSON integration with fullcalendar
 
-* Supports event scheduling using JSON / MySQL event scheduling updated
-* FullCalendar updated from 2.6.1 to 3.9.0
-	* Clickable calendar date numbers
-	* Added the calendar list view
-	* Includes business hours and now indicator 
-* Bootstrap updated from BS3 to BS4
-* Event title and description display on hover integration (popper.js)
-* Added event description field
-* Revamped delete button
-* Calendar resizing for optimal screen real estate 
-* Week and Day views set to display times 8:00AM to 4:30PM without scroll
+* FC updated from v2.6.1 to v3.9.0
+* BS3 to BS4 update
+* Event title/description hover added
+* Repeating events (NEW!)
+    * Weekday scheduling supported!
+    * Recurring events, all-day events, multi-day events supported
+    * Recurrence editing restricted to delete only
+    * Available for JSON 
+* Event scheduling
+    * JSON scheduling added
+    * Description field added for MySQL/JSON
 
 ## Getting Started
 
-* Go to your MySQL via localhost, create a table called "calendar", and create the tables found in calendar.sql
+MySQL
 
-* Open bdd.php and enter your database password
+1. Copy files to localhost
+2. Create a table in DB called "calendar", and create the tables found in calendar.sql
+3. Open bdd.php and enter DB credentials
+4. Open index.php
 
-* Go to localhost and navigate to the project directory
+JSON
 
-* index.php enables event scheduling integration with PHP and MySQL
-
-* index-json.php and associated files enable event scheduling integration with PHP and JSON
+1. Copy files to localhost
+2. Open index-json.php
 
 # Features
 
-* Add events by clicking and dragging on the calendar
+* Repeating events (NEW!)
+    * Weekday scheduling supported!
+    * Recurring events, all-day events, multi-day events supported
+    * Recurrence editing restricted to delete only
+    * Available for JSON 
+* Event scheduling
+    * JSON scheduling added
+    * Description field added for JSON/MySQL
+* FC updated from v2.6.1 to v3.9.0
+* BS3 to BS4 update
+* Event title/description onhover added
 
-* Edit/delete events by double clicking them
+# Usage
 
-* Supports event title, description, start date/time, end date/time, and color attributes
+JSON Object Event
 
-* Utilizes popper.js to show event title and description on hover
+```
+[{"id":4,
+  "rid":4,
+  "repeat":"no",
+  "title":"Meeting",
+  "description":"some text for meeting",
+  "start":"2019-01-11 10:30:00",
+  "end":"2019-01-11 12:30:00",
+  "color":"#000"
+}]
+```
+
+MySQL Event Schema
+
+```
+('id', 'title', 'description', 'color', 'start', 'end')
+(5, 'Meeting', 'some text for meeting', '#000', '2019-01-11 10:30:00', '2019-01-11 12:30:00')
+```
+
+* rid = recurrence id
+* repeat = repeat status
 
 ## Additional Readings & Resources
 
 * FullCalendar documentation: https://fullcalendar.io/docs#toc
+* FullCalendar repo: https://github.com/fullcalendar/fullcalendar
+* FullCalendar with MySQL event scheduling: https://github.com/jamelbaz/FullCalendar-BS3-PHP-MySQL
 
 ## Built With
 
-* Bootstrap
-* PHP5
-* MySQL
-* JSON / jQuery / JavaScript
-* HTML / CSS
+* FC v3.9.0
+* BS4
+* PHP5/7
+* JSON/MySQL
+* JavaScript/jQuery
+* HTML/CSS
 
 ## Contributing
 
-When contributing to this repository, you may fork and submit a pull request. Add a description of what you are doing and I'll review it.
+Submit a PR and I'll review. Look for untagged issues to help with.
 
 ## Versioning
 
-Version 1.0.0
+Version 1.1.0
 
 ## Authors
 
@@ -71,5 +109,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Project forked from jamelbaz's repository: https://github.com/jamelbaz/FullCalendar-BS3-PHP-MySQL
-* JSON blog code used in the creation of event php forms: https://www.taniarascia.com/how-to-use-json-data-with-php-or-javascript/
+* Repo built on Adam Shaw's FC: https://github.com/fullcalendar/fullcalendar
+* Repo forked from jamelbaz's repository: https://github.com/jamelbaz/FullCalendar-BS3-PHP-MySQL
+* Code used for JSON event scheduling: https://www.taniarascia.com/how-to-use-json-data-with-php-or-javascript/
+* Code used for event scheduling recurrences: https://stackoverflow.com/questions/7061802/php-function-for-get-all-mondays-within-date-range
