@@ -2,7 +2,7 @@
 
 A drag & drop event calendar with data permanence.
 
-![FullCalendar with data permanence](pic.png?raw=true)
+![FullCalendar with data permanence](img/main.png)
 
 ## Purpose
 
