@@ -6,49 +6,39 @@ A drag & drop event calendar with data permanence.
 
 ## Purpose
 
-MySQL/JSON integration with fullcalendar
+MySQL/JSON integration with FullCalendar with event recurrence capabilities.
 
-* FC updated from v2.6.1 to v3.9.0
-* BS3 to BS4 update
-* Event title/description hover added
-* Repeating events (NEW!)
-    * Weekday scheduling supported!
+# Features
+
+* **Repeating events (NEW!)**
+    * Weekday scheduling supported
     * Recurring events, all-day events, multi-day events supported
     * Recurrence editing restricted to delete only
     * Available for JSON 
 * Event scheduling
     * JSON scheduling added
     * Description field added for MySQL/JSON
+* FC updated from v2.6.1 to v3.9.0
+* BS3 to BS4 update
+* Event title/description hover added
 
 ## Getting Started
 
 MySQL
 
 1. Copy files to localhost
-2. Create a table in DB called "calendar", and create the tables found in calendar.sql
-3. Open bdd.php and enter DB credentials
-4. Open index.php
+2. Create a table in DB called *calendar*, and create the tables found in *calendar.sql*
+3. Open *bdd.php* and enter your DB credentials
+4. Open *index.php* from browser
 
 JSON
 
 1. Copy files to localhost
-2. Open index-json.php
+2. Open *index-json.php* from browser
 
-# Features
+Note: If event editing not "sticking" on refresh, verify file permissions are sufficient. ``` ls -l ```
 
-* Repeating events (NEW!)
-    * Weekday scheduling supported!
-    * Recurring events, all-day events, multi-day events supported
-    * Recurrence editing restricted to delete only
-    * Available for JSON 
-* Event scheduling
-    * JSON scheduling added
-    * Description field added for JSON/MySQL
-* FC updated from v2.6.1 to v3.9.0
-* BS3 to BS4 update
-* Event title/description onhover added
-
-# Usage
+# Event Structure
 
 JSON Object Event
 
