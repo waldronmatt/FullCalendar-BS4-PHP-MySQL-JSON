@@ -45,7 +45,7 @@ if (isset($_POST['title'])){
     $end = explode(" ", $_POST['end']);
 
     // if event is recurrence
-    if ($_POST['repeat'] == 'yes') {
+    if ($_POST['recurrence'] == 'true') {
         // initialize vars
         $dateFromString = $start[0];
         $endDate = $_POST['endDate'];
@@ -80,7 +80,7 @@ if (isset($_POST['title'])){
                 $extra = array(
                     'id' => ++$last_item_id,
                     'rid' => $last_item_rid+1,
-                    'repeat' => $_POST['repeat'],
+                    'recurrence' => $_POST['recurrence'],
                     'title' => $_POST['title'],
                     'description' => $_POST['description'],
                     'start' => $_POST['start'],
@@ -105,8 +105,7 @@ if (isset($_POST['title'])){
         // add date to array
         $extra = array(
             'id' => ++$last_item_id,
-            'rid' => $last_item_rid+1,
-            'repeat' => $_POST['repeat'],
+            'recurrence' => $_POST['recurrence'],
             'title' => $_POST['title'],
             'description' => $_POST['description'],
             'start' => $_POST['start'],

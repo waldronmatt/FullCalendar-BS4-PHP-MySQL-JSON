@@ -11,7 +11,7 @@ if (isset($_POST['delete']) && isset($_POST['id'])) {
 	$newJsonString = json_encode($data);
 	file_put_contents('json/events.json', $newJsonString);
 	
-} else if (isset($_POST['delete-repeat']) && isset($_POST['rid'])) {
+} else if (isset($_POST['deleteRecurrence']) && isset($_POST['rid'])) {
 	$jsonString = file_get_contents('json/events.json');
 	$data = json_decode($jsonString, true);
 	foreach ($data as $key => $entry) {

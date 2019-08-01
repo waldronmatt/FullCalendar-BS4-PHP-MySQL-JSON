@@ -46,7 +46,7 @@
             display: table-cell;
         }
 
-        #repeat-form {
+        #recurrence-form {
             display: none;
         }
         #calendar a.fc-event {
@@ -128,77 +128,75 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="repeat" class="col-sm-12 control-label">Recurrence</label>
+							<label for="recurrence" class="col-sm-12 control-label">Recurrence</label>
 							<div class="col-sm-12">
-								<select name="repeat" class="form-control" id="repeat">
-									<option id="no" selected="selected" value="no">no</option>
-									<option id="yes" value="yes">yes</option>
+								<select name="recurrence" class="form-control" id="recurrence">
+									<option id="false" selected="selected" value="false">no</option>
+									<option id="true" value="true">yes</option>
 								</select>
 							</div>
 						</div>
 					</div>
 					<script>
-						var repeat = $('#repeat');
-						var select = this.value;
-						repeat.change(function () {
-							if ($(this).val() == 'yes') {
-								$('#repeat-form').show();
+						$('#recurrence').change(function () {
+							if ($(this).val() === 'true') {
+								$('#recurrence-form').show();
 							} else {
-								$('#repeat-form').hide();
+								$('#recurrence-form').hide();
 							}
 						});
 					</script>
 				</div>
-				<div id="repeat-form">
-				<div class="modal-header">
-					<h5 class="modal-title" id="myModalLabel">Add Recurrence</h5>
-				</div>
-				<div class="modal-body">
-					<div class="container">
-						<div class="row">   
-							<label class="col-md-12 control-label" for="checkboxes">Day(s) of Week</label>
+				<div id="recurrence-form">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myModalLabel">Add Recurrence</h5>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<div class="row">   
+								<label class="col-md-12 control-label" for="checkboxes">Day(s) of Week</label>
+							</div>
+							<div class="row">
+								<div class="form-group">
+									<label class="col-md-1 checkbox-inline" for="checkboxes-0">
+										<input type="checkbox" name="dowID[]" id="checkboxes-0" value="6">Su
+									</label>
+									<label class="col-md-1 checkbox-inline" for="checkboxes-1">
+										<input type="checkbox" name="dowID[]" id="checkboxes-1" value="0">Mo
+									</label>
+									<label class="col-md-1 checkbox-inline" for="checkboxes-2">
+										<input type="checkbox" name="dowID[]" id="checkboxes-2" value="1">Tu
+									</label>
+									<label class="col-md-1 checkbox-inline" for="checkboxes-3">
+										<input type="checkbox" name="dowID[]" id="checkboxes-3" value="2">We
+									</label>
+									<label class="col-md-1 checkbox-inline" for="checkboxes-4">
+										<input type="checkbox" name="dowID[]" id="checkboxes-4" value="3">Th
+									</label>
+									<label class="col-md-1 checkbox-inline" for="checkboxes-5">
+										<input type="checkbox" name="dowID[]" id="checkboxes-5" value="4">Fr
+									</label>
+									<label class="col-md-1 checkbox-inline" for="checkboxes-6">
+										<input type="checkbox" name="dowID[]" id="checkboxes-6" value="5">Sa
+									</label>
+								</div>
+							</div>
 						</div>
 						<div class="row">
 							<div class="form-group">
-								<label class="col-md-1 checkbox-inline" for="checkboxes-0">
-									<input type="checkbox" name="dowID[]" id="checkboxes-0" value="6">Su
-								</label>
-								<label class="col-md-1 checkbox-inline" for="checkboxes-1">
-									<input type="checkbox" name="dowID[]" id="checkboxes-1" value="0">Mo
-								</label>
-								<label class="col-md-1 checkbox-inline" for="checkboxes-2">
-									<input type="checkbox" name="dowID[]" id="checkboxes-2" value="1">Tu
-								</label>
-								<label class="col-md-1 checkbox-inline" for="checkboxes-3">
-									<input type="checkbox" name="dowID[]" id="checkboxes-3" value="2">We
-								</label>
-								<label class="col-md-1 checkbox-inline" for="checkboxes-4">
-									<input type="checkbox" name="dowID[]" id="checkboxes-4" value="3">Th
-								</label>
-								<label class="col-md-1 checkbox-inline" for="checkboxes-5">
-									<input type="checkbox" name="dowID[]" id="checkboxes-5" value="4">Fr
-								</label>
-								<label class="col-md-1 checkbox-inline" for="checkboxes-6">
-									<input type="checkbox" name="dowID[]" id="checkboxes-6" value="5">Sa
-								</label>
+								<label for="startDate" class="col-sm-12 control-label">Start Recurrence</label>
+								<div class="col-sm-12">
+									<input type="text" name="startDate" class="form-control" id="startDate" readonly>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="endDate" class="col-sm-12 control-label">End Recurrence</label>
+								<div class="col-sm-12">
+									<input type="text" name="endDate" class="form-control" id="endDate">
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group">
-							<label for="startDate" class="col-sm-12 control-label">Start Recurrence</label>
-							<div class="col-sm-12">
-								<input type="text" name="startDate" class="form-control" id="startDate" readonly>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="endDate" class="col-sm-12 control-label">End Recurrence</label>
-							<div class="col-sm-12">
-								<input type="text" name="endDate" class="form-control" id="endDate">
-							</div>
-						</div>
-					</div>
-				</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -282,37 +280,26 @@
 					}		  
 					</script>
 				</div>
-				<div id="editRepeat">
+				<div id="editRecurrence">
 				<div class="modal-header">
 					<h5 class="modal-title" id="myModalLabel">Edit Recurrence</h5>
 				</div>
 				<div class="modal-body">
 					<div class="row">
 						<div class="form-group">
-							<label for="status" class="col-sm-12 control-label">Recurrence Status</label>
+							<label for="rstatus" class="col-sm-12 control-label">Recurrence Status</label>
 							<div class="col-sm-12">
-								<input type="text" name="status" class="form-control" id="status" placeholder="status" readonly>
+								<input type="text" name="rstatus" class="form-control" id="rstatus" readonly>
 							</div>
 						</div>
 						<div class="form-group"> 
 							<label class="col-sm-12 control-label">Delete Recurrence</label>
 							<div class="col-sm-12">
-								<label onclick="toggleCheck1('check2');" class="label-off" for="check2" id="check2_label">Delete</label>
+								<label onclick="toggleCheck('check2');" class="label-off" for="check2" id="check2_label">Delete</label>
 							</div>
-							<input class="nocheckbox" type="checkbox" id="check2" name="delete-repeat">
+							<input class="nocheckbox" type="checkbox" id="check2" name="deleteRecurrence">
 						</div>
 					</div>
-					<script>
-					function toggleCheck1(check) {
-						if ($('#'+check).is(':checked')) {
-							$('#'+check+'_label').removeClass('label-on');
-							$('#'+check+'_label').addClass('label-off');
-						} else {
-							$('#'+check+'_label').addClass('label-on');
-							$('#'+check+'_label').removeClass('label-off');
-						}
-					}
-					</script>
 					<input type="hidden" name="id" class="form-control" id="id">
 					<input type="hidden" name="rid" class="form-control" id="rid">
 				</div>
@@ -381,11 +368,11 @@
 					$('#ModalEdit #title').val(event.title);
 					$('#ModalEdit #description').val(event.description);
 					$('#ModalEdit #color').val(event.color);
-					$('#ModalEdit #status').val(event.repeat);
-					if (event.repeat == 'yes') {
-                        $('#editRepeat').show();
+					$('#ModalEdit #rstatus').val(event.recurrence);
+					if (event.recurrence === 'true') {
+                        $('#editRecurrence').show();
 					} else {
-                        $('#editRepeat').hide();
+                        $('#editRecurrence').hide();
 					}
 					$('#ModalEdit').modal('show');
 				});
