@@ -22,7 +22,7 @@ $events = $req->fetchAll();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bare - Start Bootstrap Template</title>
+    <title>FullCalendar - MySQL</title>
 	
 	<!-- FullCalendar -->
 	<link href='css/fullcalendar.min.css' rel='stylesheet' />

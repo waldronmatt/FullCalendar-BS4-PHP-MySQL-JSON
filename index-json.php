@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Bare - Start Bootstrap Template</title>
+<title>FullCalendar - JSON</title>
 
 <!-- FullCalendar -->
 <link href='css/fullcalendar.min.css' rel='stylesheet' />
@@ -46,12 +46,15 @@
 	display: table-cell;
 }
 
-#recurrence-form {
+#recurrence-form, #monthly {
 	display: none;
 }
 #calendar a.fc-event {
 	color: #fff; /* bootstrap default styles make it black. undo */
 	background-color: #0065A6;
+}
+.btn {
+	margin-left: 10px!important;
 }
 </style>
 
@@ -146,34 +149,14 @@
 						<h5 class="modal-title" id="myModalLabel">Add Recurrence</h5>
 					</div>
 					<div class="modal-body">
-						<div class="container">
-							<div class="row">   
-								<label class="col-md-12 control-label" for="checkboxes">Day(s) of Week</label>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<label class="col-md-1 checkbox-inline" for="checkboxes-6">
-										<input type="checkbox" name="dowID[]" id="checkboxes-6" value="6">Su
-									</label>
-									<label class="col-md-1 checkbox-inline" for="checkboxes-0">
-										<input type="checkbox" name="dowID[]" id="checkboxes-0" value="0">Mo
-									</label>
-									<label class="col-md-1 checkbox-inline" for="checkboxes-1">
-										<input type="checkbox" name="dowID[]" id="checkboxes-1" value="1">Tu
-									</label>
-									<label class="col-md-1 checkbox-inline" for="checkboxes-2">
-										<input type="checkbox" name="dowID[]" id="checkboxes-2" value="2">We
-									</label>
-									<label class="col-md-1 checkbox-inline" for="checkboxes-3">
-										<input type="checkbox" name="dowID[]" id="checkboxes-3" value="3">Th
-									</label>
-									<label class="col-md-1 checkbox-inline" for="checkboxes-4">
-										<input type="checkbox" name="dowID[]" id="checkboxes-4" value="4">Fr
-									</label>
-									<label class="col-md-1 checkbox-inline" for="checkboxes-5">
-										<input type="checkbox" name="dowID[]" id="checkboxes-5" value="5">Sa
-									</label>
-								</div>
+						<div class="row">
+							<div id="recurrence-option" class="form-group btn-group" data-toggle="buttons">
+								<label class="btn btn-outline-primary active">
+									<input type="radio" name="recOption" autocomplete="off" checked value="weekly"> Weekly
+								</label>
+								<label class="btn btn-outline-primary">
+									<input type="radio" name="recOption" autocomplete="off" value="monthly"> Monthly
+								</label>
 							</div>
 						</div>
 						<div class="row">
@@ -183,10 +166,55 @@
 									<input type="text" name="startDate" class="form-control" id="startDate" readonly>
 								</div>
 							</div>
+							<div class="form-group" id="monthly">
+								<label for="weekNum" class="col-sm-12 control-label">Monthly on the:</label>
+								<div class="col-sm-12">
+									<select name="weekNum" class="form-control" id="weekNum">
+										<option id="first" selected="selected" value="1">1st week</option>
+										<option id="second" value="2">2nd week</option>
+										<option id="third" value="3">3rd week</option>
+										<option id="fourth" value="4">4th week</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row" id="weekly">
+							<div class="form-group">   
+								<label class="col-md-12 control-label" for="checkboxes">Day(s) of Week</label>
+								<label class="col-md-1 checkbox-inline" for="checkboxes-6">
+									<input type="checkbox" name="dowID[]" id="checkboxes-6" value="6">Su
+								</label>
+								<label class="col-md-1 checkbox-inline" for="checkboxes-0">
+									<input type="checkbox" name="dowID[]" id="checkboxes-0" value="0">Mo
+								</label>
+								<label class="col-md-1 checkbox-inline" for="checkboxes-1">
+									<input type="checkbox" name="dowID[]" id="checkboxes-1" value="1">Tu
+								</label>
+								<label class="col-md-1 checkbox-inline" for="checkboxes-2">
+									<input type="checkbox" name="dowID[]" id="checkboxes-2" value="2">We
+								</label>
+								<label class="col-md-1 checkbox-inline" for="checkboxes-3">
+									<input type="checkbox" name="dowID[]" id="checkboxes-3" value="3">Th
+								</label>
+								<label class="col-md-1 checkbox-inline" for="checkboxes-4">
+									<input type="checkbox" name="dowID[]" id="checkboxes-4" value="4">Fr
+								</label>
+								<label class="col-md-1 checkbox-inline" for="checkboxes-5">
+									<input type="checkbox" name="dowID[]" id="checkboxes-5" value="5">Sa
+								</label>
+							</div>
+						</div>
+						<div class="row">
 							<div class="form-group">
 								<label for="endDate" class="col-sm-12 control-label">End Recurrence</label>
 								<div class="col-sm-12">
 									<input type="text" name="endDate" class="form-control" id="endDate">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="occurrences" class="col-sm-12 control-label">Occurrences</label>
+								<div class="col-sm-12">
+									<input type="text" name="occurrences" class="form-control" id="occurrences" placeholder="12">
 								</div>
 							</div>
 						</div>
@@ -200,7 +228,21 @@
 			</div>
 		</div>
 	</div>
-		
+	<script>
+	$('#recurrence-option .btn').change(function() {
+		var val = $(this).find('input').val();
+		switch (val) {
+				case 'weekly':
+					$('#monthly').hide();
+					$('#weekly').show();
+				break;
+				case 'monthly':
+					$('#weekly').hide();
+					$('#monthly').show();
+				break;
+  		}
+	});
+	</script>
 	<!-- Edit Modal -->
 	<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
