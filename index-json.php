@@ -124,22 +124,24 @@
 								<input type="text" name="description" class="form-control" id="description" placeholder="Description">
 							</div>
 						</div>
-						<div class="form-group">
-							<label for="recurrence" class="col-sm-12 control-label">Recurrence</label>
+						<div class="form-group"> 
+							<label class="col-sm-12 control-label">Recurrence</label>
 							<div class="col-sm-12">
-								<select name="recurrence" class="form-control" id="recurrence">
-									<option id="false" selected="selected" value="false">no</option>
-									<option id="true" value="true">yes</option>
-								</select>
+								<label class="recurrence label-off" for="rec" id="recurrence">Enable
+								<input class="nocheckbox" type="checkbox" id="rec" name="recurrence" value="recurrence"></label>
 							</div>
 						</div>
 					</div>
 					<script>
-						$('#recurrence').change(function () {
-							if ($(this).val() === 'true') {
+						$('#rec').change(function () {
+							var self = $(this);
+							var aValue = self.attr("value");
+							if ( $(self).is(':checked') ) {
 								$('#recurrence-form').show();
+								$("." + aValue).removeClass('label-off').addClass('label-on');
 							} else {
 								$('#recurrence-form').hide();
+								$("." + aValue).removeClass('label-on').addClass('label-off');
 							}
 						});
 					</script>
