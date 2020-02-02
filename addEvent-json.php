@@ -1,8 +1,26 @@
 <?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require 'class.Event.php';
+
 // if post
-if (isset($_POST['title'])){
+if (isset($_POST['title'])) {
+
+    // get date info
+    $jsonString = file_get_contents('json/events.json');
+    $data = json_decode($jsonString, true);
+
+    $last_rid = end($data)['rid'];
+    // split start, end into date, time
+    $startDate = explode(" ", $_POST['start'])[0];
+    $startTime = explode(" ", $_POST['start'])[1];
+    $endDate = explode(" ", $_POST['end'])[0];
+    $endTime = explode(" ", $_POST['end'])[1];
+
     // weekday array
-    $postDates = array(
+    $dayOfWeekArray = array(
         array('M',1,'monday'),
         array('T',2,'tuesday'),
         array('W',3,'wednesday'),
@@ -12,75 +30,72 @@ if (isset($_POST['title'])){
         array('U',7,'sunday'),
     );
     // compute days in range
-    function getDatesInRange($dateFromString, $dateToString, $dow, $dowNum) {
-        $dateFrom = new \DateTime($dateFromString);
-        $dateTo = new \DateTime($dateToString);
+    function getWeekDatesInRange($dateFrom, $dateTo, $dayOfWeek, $dayOfWeekNumber) {
         // array of dates
-        $dates = [];
+        $allDayRecurrences = [];
         // return empty if dateFrom > dateTo
         if ($dateFrom > $dateTo) {
-            return $dates;
+            return $allDayRecurrences;
         }
         // get next closest dow if dowNUM != dateFrom
-        if ($dowNum != $dateFrom->format('N')) {
-            $dateFrom->modify('next '. $dow);
+        if ($dayOfWeekNumber != $dateFrom->format('N')) {
+            $dateFrom->modify('next '. $dayOfWeek);
         }
         // if dateFrom <= dateTo, modify by 1 week
         while ($dateFrom <= $dateTo) {
-            $dates[] = $dateFrom->format('Y-m-d');
+            $allDayRecurrences[] = $dateFrom->format('Y-m-d');
             $dateFrom->modify('+1 week');
         }
-        return $dates;
+        return $allDayRecurrences;
     }
 
-    // get date info
-    $jsonString = file_get_contents('json/events.json');
-    $data = json_decode($jsonString, true);
-    // get, set id, rid
-    $last_item = end($data);
-    $last_item_id = $last_item['id'];
-    $last_item_rid = $last_item['rid'];
-    // split start, end into date, time
-    $start = explode(" ", $_POST['start']);
-    $end = explode(" ", $_POST['end']);
+    function startFunc($dayRecurrence, $startTime) {
+        $_POST['start'] =  $dayRecurrence . " " . $startTime;
+                        // if all day event, set the date only
+                        if ($startTime === '00:00:00') {
+                            $_POST['start'] =  $dayRecurrence;
+                        }
+                        return $_POST['start'];
+    }
+
+    function endFunc($dayRecurrence, $startDate, $endTime, $endDate) {
+                // set recurrence date, time for each date
+                $_POST['end'] =  $dayRecurrence . " " .  $endTime;
+
+                
+                if ($endTime === '00:00:00') {
+                //if all day or multi day, calculate day interval
+                    $diff = (strtotime($endDate) - strtotime($startDate))/60/60/24; 
+                    $_POST['end'] = date('Y-m-d', strtotime( $dayRecurrence . " + " . $diff . " day"));
+                }
+                return $_POST['end'];
+    }
 
     // if event is recurrence
     if ($_POST['recurrence']) {
         // initialize vars
-        $dateFromString = $start[0];
-        $endDate = $_POST['endDate'];
-        $dateToString = $endDate;
+        $dateFromString = $startDate;
+        $dateToString = $_POST['endDate'];
         // for each dow
         foreach ($_POST['dowID'] as $key => $value) {
             // initialize vars
-            $dowNum = $postDates[$value][1];
-            $dow = $postDates[$value][2];
+            $dayOfWeekNumber = $dayOfWeekArray[$value][1];
+            $dayOfWeek = $dayOfWeekArray[$value][2];
+            $dateFrom = new \DateTime($dateFromString);
+            $dateTo = new \DateTime($dateToString);
+
             // call days in range function
-            $dates = getDatesInRange($dateFromString, $dateToString, $dow, $dowNum);
+            $allDayRecurrences = getWeekDatesInRange($dateFrom, $dateTo, $dayOfWeek, $dayOfWeekNumber);
             // loop each day for dow
-            $counter = count($dates);
-            for ($x = 0; $x < $counter; $x++) {
-                // date from array dates
-                $date = $dates[$x];
-                // set recurrence date, time for each date
-                $_POST['start'] = $date . " " . $start[1];
-                $_POST['end'] = $date . " " .  $end[1];
-                // if all day event, set the date only
-                if($start[1] == '00:00:00') {
-                    $_POST['start'] = $date;
-                }
-                if($end[1] == '00:00:00') {
-                //if all day or multi day, calculate day interval
-                    $start_date = strtotime($start[0]); 
-                    $end_date = strtotime($end[0]); 
-                    $diff = ($end_date - $start_date)/60/60/24; 
-                    $_POST['end'] = date('Y-m-d', strtotime($date . " + " . $diff . " day"));
-                }
+            foreach ($allDayRecurrences as $dayRecurrence) {
+                $_POST['start'] =  startFunc($dayRecurrence, $startTime);
+                $_POST['end'] =  endFunc($dayRecurrence, $startDate, $endTime, $endDate);
+
                 // add date to array
-                $extra = array(
-                    'id' => ++$last_item_id,
-                    'rid' => $last_item_rid+1,
-                    'recurrence' => 'true',
+                $addEvent = array(
+                    'id' => ++ end($data)['id'],
+                    'rid' => $last_rid + 1,
+                    'eventType' => 'repeating event',
                     'title' => $_POST['title'],
                     'description' => $_POST['description'],
                     'start' => $_POST['start'],
@@ -88,36 +103,21 @@ if (isset($_POST['title'])){
                     'color' => $_POST['color'],
                 );
                 // save date info
-                $data[] = $extra;
+                $data[] = $addEvent;
                 $newJsonString = json_encode($data);
                 file_put_contents('json/events.json', $newJsonString);
             }
         }
     // if single event
     } else {
-        // if all day event, set the date only
-        if($start[1] == '00:00:00') {
-            $_POST['start'] = $start[0];
-        }
-        if($end[1] == '00:00:00') {
-            $_POST['end'] = $end[0];
-        }
-        // add date to array
-        $extra = array(
-            'id' => ++$last_item_id,
-            'recurrence' => 'false',
-            'title' => $_POST['title'],
-            'description' => $_POST['description'],
-            'start' => $_POST['start'],
-            'end' =>  $_POST['end'],
-            'color' => $_POST['color'],
-        );
-        // save date info
-        $data[] = $extra;
+        // Creating the object 
+        $addSingleEvent = new Event(++ end($data)['id'], 'single event', $_POST['title'], $_POST['description'], $_POST['start'], $_POST['end'], $_POST['color']); 
+        // Converting object to associative array
+        $data[] = $addSingleEvent;
         $newJsonString = json_encode($data);
         file_put_contents('json/events.json', $newJsonString);
     }
 }
 // back to fullCalendar
-header('Location: '.$_SERVER['HTTP_REFERER']);	
-?> 
+header('Location: '.$_SERVER['HTTP_REFERER']);
+?>

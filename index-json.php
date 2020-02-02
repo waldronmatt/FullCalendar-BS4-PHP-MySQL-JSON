@@ -56,6 +56,11 @@
 .btn {
 	margin-left: 10px!important;
 }
+@media (min-width: 576px) {
+.modal-dialog {
+    max-width: 550px;
+}
+}
 </style>
 
 </head>
@@ -125,7 +130,7 @@
 							</div>
 						</div>
 						<div class="form-group"> 
-							<label class="col-sm-12 control-label">Recurrence</label>
+							<label class="col-sm-12 control-label">Event Type</label>
 							<div class="col-sm-12">
 								<label class="recurrence label-off" for="rec" id="recurrence">Enable
 								<input class="nocheckbox" type="checkbox" id="rec" name="recurrence" value="recurrence"></label>
@@ -255,6 +260,14 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body">
+				<div class="row">
+				<div class="form-group">
+								<label for="rstatus" class="col-sm-12 control-label">Event Type</label>
+								<div class="col-sm-12">
+									<input type="text" name="rstatus" class="form-control" id="rstatus" readonly>
+								</div>
+						</div>
+						</div>
 					<div class="row">
 						<div class="form-group">
 							<label for="start" class="col-sm-12 control-label">Start date</label>
@@ -308,28 +321,22 @@
 					</div>
 				</div>
 				<div id="editRecurrence">
-				<div class="modal-header">
-					<h5 class="modal-title" id="myModalLabel">Edit Recurrence</h5>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="form-group">
-							<label for="rstatus" class="col-sm-12 control-label">Recurrence Status</label>
-							<div class="col-sm-12">
-								<input type="text" name="rstatus" class="form-control" id="rstatus" readonly>
-							</div>
-						</div>
-						<div class="form-group"> 
-							<label class="col-sm-12 control-label">Delete Recurrence</label>
-							<div class="col-sm-12">
-								<label class="deleteRecurrence label-off" for="delRec" id="deleteRecurrence">Delete
-								<input class="nocheckbox" type="checkbox" id="delRec" name="deleteRecurrence" value="deleteRecurrence"></label>
-							</div>
-						</div>
+					<div class="modal-header">
+						<h5 class="modal-title" id="myModalLabel">Edit Recurrence</h5>
 					</div>
-					<input type="hidden" name="id" class="form-control" id="id">
-					<input type="hidden" name="rid" class="form-control" id="rid">
-				</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group"> 
+								<label class="col-sm-12 control-label">Delete Recurrence</label>
+								<div class="col-sm-12">
+									<label class="deleteRecurrence label-off" for="delRec" id="deleteRecurrence">Delete
+									<input class="nocheckbox" type="checkbox" id="delRec" name="deleteRecurrence" value="deleteRecurrence"></label>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="id" class="form-control" id="id">
+						<input type="hidden" name="rid" class="form-control" id="rid">
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -416,8 +423,8 @@ $(function() {
 				$('#ModalEdit #title').val(event.title);
 				$('#ModalEdit #description').val(event.description);
 				$('#ModalEdit #color').val(event.color);
-				$('#ModalEdit #rstatus').val(event.recurrence);
-				if (event.recurrence === 'true') {
+				$('#ModalEdit #rstatus').val(event.eventType);
+				if (event.eventType === 'repeating event') {
 					$('#editRecurrence').show();
 				} else {
 					$('#editRecurrence').hide();
