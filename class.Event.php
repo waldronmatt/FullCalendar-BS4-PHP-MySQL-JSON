@@ -1,8 +1,9 @@
 <?php
 
 class Event {        
-    /* Member variables */
+    // initialize variables
     var $id;
+    var $rid;
     var $eventType;
     var $title;
     var $description;
@@ -10,21 +11,23 @@ class Event {
     var $end;
     var $color;
     
-    function __construct( $__id, $__eventType, $__title, $__description, $__start, $__end, $__color )
+    function __construct( $__id, $__rid, $__eventType, $__title, $__description, $__start, $__end, $__color )
     { 
         $this->id = $__id;
+        $this->rid = $__rid;
         $this->eventType = $__eventType;
         $this->title = $__title;
         $this->description = $__description;
-        $this->setStart($__start);
-        $this->setEnd($__end);
+        $this->setStartDateTime($__start);
+        $this->setEndDateTime($__end, $__start);
         $this->color = $__color;
     }
 
-    public function setStart($__start) {
-        $startTime = explode(" ", $_POST['start'])[1];
-        $startDate = explode(" ", $_POST['start'])[0];
+    public function setStartDateTime($__start) {
+        $startTime = explode(" ", $__start)[1];
+        $startDate = explode(" ", $__start)[0];
 
+        // set to date if 'all day, many day' event
         if ($startTime === '00:00:00') {
             $this->start = $startDate;
         } else {
@@ -32,10 +35,12 @@ class Event {
         }
     }
 
-    public function setEnd($__end) {
-        $endTime = explode(" ", $_POST['end'])[1];
-        $endDate = explode(" ", $_POST['end'])[0];
+    public function setEndDateTime($__end, $__start) {
+        // $__start is null here (see class Recurrence)
+        $endTime = explode(" ", $__end)[1];
+        $endDate = explode(" ", $__end)[0];
         
+        // set to date if 'all day, many day' event
         if ($endTime === '00:00:00') {
             $this->end = $endDate;
         } else {

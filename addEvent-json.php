@@ -4,6 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require 'class.Event.php';
+require 'class.Recurrence.php';
 
 // if post
 if (isset($_POST['title'])) {
@@ -12,12 +13,8 @@ if (isset($_POST['title'])) {
     $jsonString = file_get_contents('json/events.json');
     $data = json_decode($jsonString, true);
 
-    $last_rid = end($data)['rid'];
-    // split start, end into date, time
-    $startDate = explode(" ", $_POST['start'])[0];
-    $startTime = explode(" ", $_POST['start'])[1];
-    $endDate = explode(" ", $_POST['end'])[0];
-    $endTime = explode(" ", $_POST['end'])[1];
+    $id = end($data)['id'];
+    $rid = end($data)['rid'];
 
     // weekday array
     $dayOfWeekArray = array(
@@ -49,70 +46,40 @@ if (isset($_POST['title'])) {
         return $allDayRecurrences;
     }
 
-    function startFunc($dayRecurrence, $startTime) {
-        $_POST['start'] =  $dayRecurrence . " " . $startTime;
-                        // if all day event, set the date only
-                        if ($startTime === '00:00:00') {
-                            $_POST['start'] =  $dayRecurrence;
-                        }
-                        return $_POST['start'];
-    }
-
-    function endFunc($dayRecurrence, $startDate, $endTime, $endDate) {
-                // set recurrence date, time for each date
-                $_POST['end'] =  $dayRecurrence . " " .  $endTime;
-
-                
-                if ($endTime === '00:00:00') {
-                //if all day or multi day, calculate day interval
-                    $diff = (strtotime($endDate) - strtotime($startDate))/60/60/24; 
-                    $_POST['end'] = date('Y-m-d', strtotime( $dayRecurrence . " + " . $diff . " day"));
-                }
-                return $_POST['end'];
-    }
-
     // if event is recurrence
     if ($_POST['recurrence']) {
-        // initialize vars
-        $dateFromString = $startDate;
-        $dateToString = $_POST['endDate'];
+        $rid = ++$rid;
         // for each dow
         foreach ($_POST['dowID'] as $key => $value) {
             // initialize vars
             $dayOfWeekNumber = $dayOfWeekArray[$value][1];
             $dayOfWeek = $dayOfWeekArray[$value][2];
-            $dateFrom = new \DateTime($dateFromString);
-            $dateTo = new \DateTime($dateToString);
+            $dateFrom = new \DateTime(explode(" ", $_POST['start'])[0]);
+            $dateTo = new \DateTime($_POST['endDate']);
 
             // call days in range function
             $allDayRecurrences = getWeekDatesInRange($dateFrom, $dateTo, $dayOfWeek, $dayOfWeekNumber);
             // loop each day for dow
             foreach ($allDayRecurrences as $dayRecurrence) {
-                $_POST['start'] =  startFunc($dayRecurrence, $startTime);
-                $_POST['end'] =  endFunc($dayRecurrence, $startDate, $endTime, $endDate);
-
-                // add date to array
-                $addEvent = array(
-                    'id' => ++ end($data)['id'],
-                    'rid' => $last_rid + 1,
-                    'eventType' => 'repeating event',
-                    'title' => $_POST['title'],
-                    'description' => $_POST['description'],
-                    'start' => $_POST['start'],
-                    'end' =>  $_POST['end'],
-                    'color' => $_POST['color'],
-                );
-                // save date info
-                $data[] = $addEvent;
-                $newJsonString = json_encode($data);
-                file_put_contents('json/events.json', $newJsonString);
+                $id = ++$id;
+                // Creating the object 
+                $storeRecurrenceEvents[] = new Recurrence($id, $rid, 'repeating event', $_POST['title'], $_POST['description'], $dayRecurrence, $dayRecurrence, $_POST['color']); 
             }
         }
+
+        // Convert object to associative array
+        $newData = array_merge($data, $storeRecurrenceEvents);
+        $newJsonString = json_encode($newData);
+        file_put_contents('json/events.json', $newJsonString);
+
     // if single event
     } else {
-        // Creating the object 
-        $addSingleEvent = new Event(++ end($data)['id'], 'single event', $_POST['title'], $_POST['description'], $_POST['start'], $_POST['end'], $_POST['color']); 
-        // Converting object to associative array
+        $id = ++$id;
+        $rid = ++$rid;
+        // Create the object 
+        $addSingleEvent = new Event($id, $rid, 'single event', $_POST['title'], $_POST['description'], $_POST['start'], $_POST['end'], $_POST['color']);
+ 
+        // Convert object to associative array
         $data[] = $addSingleEvent;
         $newJsonString = json_encode($data);
         file_put_contents('json/events.json', $newJsonString);
