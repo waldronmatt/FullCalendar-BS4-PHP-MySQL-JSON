@@ -189,25 +189,25 @@
 							<div class="form-group">   
 								<label class="col-md-12 control-label" for="checkboxes">Day(s) of Week</label>
 								<label class="col-md-1 checkbox-inline" for="checkboxes-6">
-									<input type="checkbox" name="dowID[]" id="checkboxes-6" value="6">Su
+									<input type="checkbox" name="dayOfWeek[]" id="checkboxes-6" value="6">Su
 								</label>
 								<label class="col-md-1 checkbox-inline" for="checkboxes-0">
-									<input type="checkbox" name="dowID[]" id="checkboxes-0" value="0">Mo
+									<input type="checkbox" name="dayOfWeek[]" id="checkboxes-0" value="0">Mo
 								</label>
 								<label class="col-md-1 checkbox-inline" for="checkboxes-1">
-									<input type="checkbox" name="dowID[]" id="checkboxes-1" value="1">Tu
+									<input type="checkbox" name="dayOfWeek[]" id="checkboxes-1" value="1">Tu
 								</label>
 								<label class="col-md-1 checkbox-inline" for="checkboxes-2">
-									<input type="checkbox" name="dowID[]" id="checkboxes-2" value="2">We
+									<input type="checkbox" name="dayOfWeek[]" id="checkboxes-2" value="2">We
 								</label>
 								<label class="col-md-1 checkbox-inline" for="checkboxes-3">
-									<input type="checkbox" name="dowID[]" id="checkboxes-3" value="3">Th
+									<input type="checkbox" name="dayOfWeek[]" id="checkboxes-3" value="3">Th
 								</label>
 								<label class="col-md-1 checkbox-inline" for="checkboxes-4">
-									<input type="checkbox" name="dowID[]" id="checkboxes-4" value="4">Fr
+									<input type="checkbox" name="dayOfWeek[]" id="checkboxes-4" value="4">Fr
 								</label>
 								<label class="col-md-1 checkbox-inline" for="checkboxes-5">
-									<input type="checkbox" name="dowID[]" id="checkboxes-5" value="5">Sa
+									<input type="checkbox" name="dayOfWeek[]" id="checkboxes-5" value="5">Sa
 								</label>
 							</div>
 						</div>
