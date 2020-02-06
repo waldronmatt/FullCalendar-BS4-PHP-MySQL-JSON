@@ -161,9 +161,9 @@
 								<label class="btn btn-outline-primary active">
 									<input type="radio" name="recOption" autocomplete="off" checked value="weekly"> Weekly
 								</label>
-								<label class="btn btn-outline-primary">
+								<!-- <label class="btn btn-outline-primary">
 									<input type="radio" name="recOption" autocomplete="off" value="monthly"> Monthly
-								</label>
+								</label> -->
 							</div>
 						</div>
 						<div class="row">
@@ -218,12 +218,12 @@
 									<input type="text" name="endDate" class="form-control" id="endDate">
 								</div>
 							</div>
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="occurrences" class="col-sm-12 control-label">Occurrences</label>
 								<div class="col-sm-12">
 									<input type="text" name="occurrences" class="form-control" id="occurrences" placeholder="12">
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>

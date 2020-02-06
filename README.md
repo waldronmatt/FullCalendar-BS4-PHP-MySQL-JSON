@@ -11,16 +11,16 @@ MySQL/JSON integration with FullCalendar and event recurrence capabilities.
 # Features
 
 * **Repeating events (NEW!)**
-    * Weekday scheduling supported
-    * Recurring events, all-day events, multi-day events supported
-    * Recurrence editing restricted to delete only
+    * Supports weekly recurrences
+    * Supports regular, all-day, and multi-day events
+    * Supports recurrence editing - deletion only
     * Available for JSON 
 * Event scheduling
     * JSON scheduling added
-    * Description field added for MySQL/JSON
 * FC updated from v2.6.1 to v3.9.0
 * BS3 to BS4 update
 * Event title/description hover added
+* Added description field
 
 ## Getting Started
 
@@ -45,7 +45,7 @@ JSON Object Event
 ```
 [{"id":4,
   "rid":4,
-  "repeat":"no",
+  "eventType":"single event",
   "title":"Meeting",
   "description":"some text for meeting",
   "start":"2019-01-11 10:30:00",
@@ -61,10 +61,6 @@ MySQL Event Schema
 (5, 'Meeting', 'some text for meeting', '#000', '2019-01-11 10:30:00', '2019-01-11 12:30:00')
 ```
 
-New Properties
-
-* rid = recurrence id
-* repeat = repeat status
 
 ## Additional Readings & Resources
 
@@ -87,7 +83,7 @@ Submit a PR and I'll review. Look for untagged/unassigned issues to help with.
 
 ## Versioning
 
-Version 1.1.0
+Version 1.2.0
 
 ## Authors
 
@@ -103,5 +99,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * Repo built on Adam Shaw's FC: https://github.com/fullcalendar/fullcalendar
 * Repo forked from jamelbaz's repository: https://github.com/jamelbaz/FullCalendar-BS3-PHP-MySQL
-* Code used for JSON event scheduling: https://www.taniarascia.com/how-to-use-json-data-with-php-or-javascript/
-* Code used for event scheduling recurrences: https://stackoverflow.com/questions/7061802/php-function-for-get-all-mondays-within-date-range
