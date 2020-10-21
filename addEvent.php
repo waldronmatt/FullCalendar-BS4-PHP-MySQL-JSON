@@ -1,35 +1,31 @@
 <?php
+require_once('auth.php');
+require_once('sanitize.php');
 
-// Connexion à la base de données
-require_once('bdd.php');
-//echo $_POST['title'];
-if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['color'])){
-	
-	$title = $_POST['title'];
-	$description = $_POST['description'];
+if (isset($_POST['title'])) {
+	$title = sanitizeInput($_POST['title']);
+	$description = sanitizeInput($_POST['description']);
 	$start = $_POST['start'];
 	$end = $_POST['end'];
-	$color = $_POST['color'];
+	$color = sanitizeInput($_POST['color']);
 
 	$sql = "INSERT INTO events(title, description, start, end, color) values ('$title', '$description', '$start', '$end', '$color')";
-	//$req = $bdd->prepare($sql);
-	//$req->execute();
-	
 	echo $sql;
 	
-	$query = $bdd->prepare( $sql );
-	if ($query == false) {
-	 print_r($bdd->errorInfo());
-	 die ('Erreur prepare');
-	}
-	$sth = $query->execute();
-	if ($sth == false) {
-	 print_r($query->errorInfo());
-	 die ('Erreur execute');
+	$prepareQuery = $auth->prepare($sql);
+
+	if ($prepareQuery == false) {
+	 print_r($auth->errorInfo());
+	 die ('Error preparing the query.');
 	}
 
+	$executeQuery = $prepareQuery->execute();
+
+	if ($executeQuery == false) {
+	 print_r($prepareQuery->errorInfo());
+	 die ('Error executing the query');
+	}
 }
-header('Location: '.$_SERVER['HTTP_REFERER']);
 
-	
+header('Location: '.$_SERVER['HTTP_REFERER']);
 ?>

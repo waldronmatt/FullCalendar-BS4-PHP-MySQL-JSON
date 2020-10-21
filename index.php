@@ -1,10 +1,10 @@
 <?php
-require_once('bdd.php');
+require_once('auth.php');
 
 
 $sql = "SELECT id, title, description, start, end, color FROM events ";
 
-$req = $bdd->prepare($sql);
+$req = $auth->prepare($sql);
 $req->execute();
 
 $events = $req->fetchAll();
