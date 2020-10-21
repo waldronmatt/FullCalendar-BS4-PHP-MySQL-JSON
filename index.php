@@ -249,9 +249,9 @@ $events = $req->fetchAll();
 		
 		$('#calendar').fullCalendar({
 			header: {
-				left: 'prev,next, today',
+				left: 'prev,next,today',
 				center: 'title',
-				right: 'month,agendaWeek,agendaDay, listWeek'
+				right: 'month,agendaWeek,agendaDay,listWeek'
 			},
 			height: 590,
 			businessHours: {
@@ -261,9 +261,9 @@ $events = $req->fetchAll();
 			  end: '17:00',
 			},
 			nowIndicator: true,
-			now: '2019-01-11T11:15:00', //remove - only for demo
+			now: '2020-12-11T11:15:00', //remove - only for demo
 			scrollTime: '08:00:00',
-			defaultDate: '2019-01-07', // Use this line to use the current date: new Date(),
+			defaultDate: '2020-12-07', // Use this line to use the current date: new Date(),
 			editable: true,
 			navLinks: true,
 			eventLimit: true, // allow "more" link when there are too many events
