@@ -3,6 +3,7 @@ require_once('./utils/auth.php');
 require_once('./utils/sanitize.php');
 
 if (isset($_POST['title'])) {
+
 	$title = sanitizeInput($_POST['title']);
 	$description = sanitizeInput($_POST['description']);
 	$start = $_POST['start'];
@@ -23,7 +24,7 @@ if (isset($_POST['title'])) {
 
 	if ($executeQuery == false) {
 	 print_r($prepareQuery->errorInfo());
-	 die ('Error executing the query');
+	 die ('Error executing the query.');
 	}
 }
 

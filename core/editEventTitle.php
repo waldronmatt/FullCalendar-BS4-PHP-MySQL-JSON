@@ -3,22 +3,24 @@
 require_once('./utils/auth.php');
 if (isset($_POST['delete']) && isset($_POST['id'])){
 	
-	
 	$id = $_POST['id'];
-	
+
 	$sql = "DELETE FROM events WHERE id = $id";
-	$query = $auth->prepare( $sql );
-	if ($query == false) {
+
+	$prepareQuery = $auth->prepare($sql);
+
+	if ($prepareQuery == false) {
 	 print_r($auth->errorInfo());
-	 die ('Erreur prepare');
+	 die ('Error preparing the query.');
 	}
-	$res = $query->execute();
-	if ($res == false) {
-	 print_r($query->errorInfo());
-	 die ('Erreur execute');
+
+	$executeQuery = $prepareQuery->execute();
+	if ($executeQuery == false) {
+	 print_r($prepareQuery->errorInfo());
+	 die ('Error executing the query.');
 	}
 	
-}elseif (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['color']) && isset($_POST['id'])){
+} else if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['color']) && isset($_POST['id'])){
 	
 	$id = $_POST['id'];
 	$title = $_POST['title'];
@@ -27,20 +29,20 @@ if (isset($_POST['delete']) && isset($_POST['id'])){
 	
 	$sql = "UPDATE events SET  title = '$title', description = '$description', color = '$color' WHERE id = $id ";
 
-	
-	$query = $auth->prepare( $sql );
-	if ($query == false) {
+	$prepareQuery = $auth->prepare($sql);
+
+	if ($prepareQuery == false) {
 	 print_r($auth->errorInfo());
-	 die ('Erreur prepare');
-	}
-	$sth = $query->execute();
-	if ($sth == false) {
-	 print_r($query->errorInfo());
-	 die ('Erreur execute');
+	 die ('Error preparing the query.');
 	}
 
+	$executeQuery = $prepareQuery->execute();
+
+	if ($executeQuery == false) {
+	 print_r($prepareQuery->errorInfo());
+	 die ('Error executing the query.');
+	}
 }
-header('Location: ../index.php');
 
-	
+header('Location: ../index.php');	
 ?>

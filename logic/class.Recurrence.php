@@ -12,8 +12,8 @@ class Recurrence extends Event {
   public function setStartDateTime( $__start ) {
     $startTime = explode(" ", $_POST['start'])[1];
 
+    // set to date if 'all day, many day' event
     if ($startTime === '00:00:00') {
-      // set to date if 'all day, many day' event
       $this->start =  $__start;
     } else {
       $this->start =  $__start . " " . $startTime;
@@ -26,11 +26,13 @@ class Recurrence extends Event {
     $endTime = explode(" ", $_POST['end'])[1];
 
     if ($endTime === '00:00:00') {
+
       // set to date if 'all day, many day' event
       $diff = (strtotime($endDate) - strtotime($startDate))/60/60/24;
+
       // calculate diff between start/end
       // diff will be used for all dates' end date
-      $this->end = date('Y-m-d', strtotime( $__end . " + " . $diff . " day"));
+      $this->end = date('Y-m-d', strtotime($__end . " + " . $diff . " day"));
     } else {
       $this->end =  $__end . " " .  $endTime;
     }

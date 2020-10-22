@@ -35,6 +35,7 @@ class Event {
   }
 
   public function setEndDateTime( $__end, $__start ) {
+
     // $__start is null here (only used on recurrence method for overriding)
     $endTime = explode(" ", $__end)[1];
     $endDate = explode(" ", $__end)[0];
