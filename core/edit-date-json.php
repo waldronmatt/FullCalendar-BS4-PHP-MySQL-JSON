@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_POST['Event'][0]) && isset($_POST['Event'][1]) && isset($_POST['Event'][2])) {
-	$jsonString = file_get_contents('json/events.json');
+	$jsonString = file_get_contents('../data/events.json');
 	$data = json_decode($jsonString, true);
 
     $start = explode(" ", $_POST['Event'][1]);
@@ -20,7 +20,7 @@ if (isset($_POST['Event'][0]) && isset($_POST['Event'][1]) && isset($_POST['Even
 		}
 	}
 	$newJsonString = json_encode($data);
-	file_put_contents('json/events.json', $newJsonString);
+	file_put_contents('../data/events.json', $newJsonString);
 
 }
 //header('Location: '.$_SERVER['HTTP_REFERER']);

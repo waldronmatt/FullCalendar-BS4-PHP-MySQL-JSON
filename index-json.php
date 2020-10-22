@@ -80,7 +80,7 @@
 	<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<form class="form-horizontal" method="POST" action="addEvent-json.php">
+				<form class="form-horizontal" method="POST" action="./core/add-event-json.php">
 				<div class="modal-header">
 					<h4 class="modal-title" id="myModalLabel">Add Event</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -254,7 +254,7 @@
 	<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<form class="form-horizontal" method="POST" action="editEventTitle-json.php">
+				<form class="form-horizontal" method="POST" action="./core/edit-title-json.php">
 				<div class="modal-header">
 					<h4 class="modal-title" id="myModalLabel">Edit Event</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -402,7 +402,7 @@ $(function() {
 		},
 		eventAfterRender: function(eventObj, $el) {
 			var request = new XMLHttpRequest();
-			request.open('GET', 'json/events.json', true);
+			request.open('GET', 'data/events.json', true);
 			request.onload = function () {
 				$el.popover({
 					title: eventObj.title,
@@ -462,7 +462,7 @@ $(function() {
 		Event[2] = end;
 		
 		$.ajax({
-			url: 'editEventDate-json.php',
+			url: './core/edit-date-json.php',
 			type: "POST",
 			data: {Event:Event},
 			success: function(rep) {

@@ -1,7 +1,7 @@
 <?php
 
 // Connexion à la base de données
-require_once('auth.php');
+require_once('./utils/auth.php');
 
 if (isset($_POST['Event'][0]) && isset($_POST['Event'][1]) && isset($_POST['Event'][2])){
 	

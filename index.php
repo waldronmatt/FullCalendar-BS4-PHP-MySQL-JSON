@@ -1,5 +1,5 @@
 <?php
-require_once('auth.php');
+require_once('./utils/auth.php');
 
 
 $sql = "SELECT id, title, description, start, end, color FROM events ";
@@ -93,7 +93,7 @@ $events = $req->fetchAll();
 <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-     <form class="form-horizontal" method="POST" action="addEvent.php">
+     <form class="form-horizontal" method="POST" action="./core/add-event.php">
 			
 			  <div class="modal-header">
 			  <h4 class="modal-title" id="myModalLabel">Add Event</h4>
@@ -158,8 +158,7 @@ $events = $req->fetchAll();
 <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-     <form class="form-horizontal" method="POST" action="editEventTitle.php">
-			<form class="form-horizontal" method="POST" action="editEventTitle.php">
+			<form class="form-horizontal" method="POST" action="./core/edit-title.php">
 			  <div class="modal-header">
 			  <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -353,7 +352,7 @@ $events = $req->fetchAll();
 			Event[2] = end;
 			
 			$.ajax({
-			 url: 'editEventDate.php',
+			 url: './core/edit-date.php',
 			 type: "POST",
 			 data: {Event:Event},
 			 success: function(rep) {

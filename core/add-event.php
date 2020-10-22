@@ -1,6 +1,6 @@
 <?php
-require_once('auth.php');
-require_once('sanitize.php');
+require_once('./utils/auth.php');
+require_once('./utils/sanitize.php');
 
 if (isset($_POST['title'])) {
 	$title = sanitizeInput($_POST['title']);

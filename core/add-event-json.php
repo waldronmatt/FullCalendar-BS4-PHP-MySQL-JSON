@@ -4,17 +4,17 @@
   // ini_set('display_startup_errors', 1);
   // error_reporting(E_ALL);
   
-  require_once('sanitize.php');
+  require_once('../utils/sanitize.php');
 
-  require 'class.Event.php';
-  require 'class.Recurrence.php';
-  require 'class.Week.php';
+  require '../logic/class.Event.php';
+  require '../logic/class.Recurrence.php';
+  require '../logic/class.Week.php';
 
   // if event post
   if (isset($_POST['title'])) {
 
       // get dates data
-      $jsonString = file_get_contents('json/events.json');
+      $jsonString = file_get_contents('../data/events.json');
       $data = json_decode($jsonString, true);
 
       $id = end($data)['id'];
@@ -49,7 +49,7 @@
           // store dates
           $events = array_merge($data, $addRecurrenceEvents);
           $newJsonString = json_encode($events);
-          file_put_contents('json/events.json', $newJsonString);
+          file_put_contents('../data/events.json', $newJsonString);
 
       // if single event
       } else {
@@ -68,7 +68,7 @@
         // store dates
         $data[] = $addSingleEvent;
         $newJsonString = json_encode($data);
-        file_put_contents('json/events.json', $newJsonString);
+        file_put_contents('../data/events.json', $newJsonString);
       }
   }
   // back to fullCalendar

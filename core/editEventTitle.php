@@ -1,6 +1,6 @@
 <?php
 
-require_once('auth.php');
+require_once('./utils/auth.php');
 if (isset($_POST['delete']) && isset($_POST['id'])){
 	
 	
@@ -40,7 +40,7 @@ if (isset($_POST['delete']) && isset($_POST['id'])){
 	}
 
 }
-header('Location: index.php');
+header('Location: ../index.php');
 
 	
 ?>
