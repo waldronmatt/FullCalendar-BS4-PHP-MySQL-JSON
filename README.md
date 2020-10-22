@@ -2,7 +2,7 @@
 
 A drag & drop event calendar with data permanence.
 
-![FullCalendar with data permanence](img/main.png)
+![FullCalendar with data permanence](main.png)
 
 ## Purpose
 
@@ -28,7 +28,7 @@ MySQL
 
 1. Copy files to localhost
 2. Create a table in DB called *calendar*, and create the tables found in *calendar.sql*
-3. Open *bdd.php* and enter your DB credentials
+3. Open *auth.php* and enter your DB credentials
 4. Open *index.php* from browser
 
 JSON
