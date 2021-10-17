@@ -1,3 +1,5 @@
+# NOTE: I will no longer be supporting this repository. [FullCalendar's newest API](https://fullcalendar.io/) contains significant improvements over version 3 including better recurrence capabilities to wire into your backend.
+
 # FullCalendar-BS4-PHP-MySQL-JSON
 
 A drag & drop event calendar with data permanence.
